@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum Solar - Dialer Script Helper</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0088cc;
+            --primary-teal: #00cccc;
+            --dark-blue: #005580;
+            --light-blue: #e6f7ff;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #cccccc;
+            --dark-gray: #333333;
+            --success-green: #4CAF50;
+            --danger-red: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-teal));
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-left: 20px;
+        }
+        
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            min-height: calc(100vh - 180px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--white);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-right: 20px;
+        }
+        
+        .content-area {
+            flex: 1;
+            background-color: var(--white);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .nav-button.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+        
+        .editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .editor textarea {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid var(--medium-gray);
+            border-radius: 5px;
+            resize: none;
+            min-height: 300px;
+        }
+        
+        .editor textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 2px rgba(0, 136, 204, 0.2);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            padding: 10px 20px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 10px;
+        }
+        
+        .action-button:hover {
+            background-color: var(--dark-blue);
+        }
+        
+        .action-button.save {
+            background-color: var(--success-green);
+        }
+        
+        .action-button.save:hover {
+            background-color: #3e8e41;
+        }
+        
+        .action-button.delete {
+            background-color: var(--danger-red);
+        }
+        
+        .action-button.delete:hover {
+            background-color: #d32f2f;
+        }
+        
+        .section-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .section-button {
+            padding: 10px 15px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .section-button:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .section-button.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .add-button-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--success-green);
+            color: var(--white);
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .title {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="/static/logo.png" alt="Momentum Solar Logo" class="logo">
+                <h1 class="title">Dialer Script Helper</h1>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="sidebar">
+                <button class="nav-button" data-section="intro">Introduction</button>
+                <button class="nav-button" data-section="bill_info">Bill Information</button>
+                <button class="nav-button" data-section="programs">Programs</button>
+                <button class="nav-button" data-section="objections">Objections</button>
+                <button class="nav-button" data-section="closing">Closing</button>
+                <button class="nav-button" data-section="final_details">Final Details</button>
+            </div>
+            
+            <div class="content-area">
+                <h2 class="section-title" id="current-section-title">Introduction</h2>
+                
+                <!-- Section buttons container (for all sections except objections) -->
+                <div id="section-buttons-container" style="display: none;">
+                    <div class="section-buttons" id="section-buttons">
+                        <!-- Section buttons will be added here dynamically -->
+                    </div>
+                    
+                    <div id="add-button-container">
+                        <button class="action-button" id="show-add-button">Add New Button</button>
+                        
+                        <div class="add-button-form" id="add-button-form" style="display: none;">
+                            <div class="form-group">
+                                <label for="button-name">Button Name:</label>
+                                <input type="text" id="button-name" placeholder="Enter button name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="button-content">Button Content:</label>
+                                <textarea id="button-content" placeholder="Enter button content"></textarea>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="action-button" id="cancel-add-button">Cancel</button>
+                                <button class="action-button save" id="save-new-button">Save Button</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Objections container (specifically for objections section) -->
+                <div id="objections-container" style="display: none;">
+                    <div class="section-buttons" id="objection-buttons">
+                        <!-- Objection buttons will be added here dynamically -->
+                    </div>
+                    
+                    <div id="add-objection-container">
+                        <button class="action-button" id="show-add-objection">Add New Objection</button>
+                        
+                        <div class="add-button-form" id="add-objection-form" style="display: none;">
+                            <div class="form-group">
+                                <label for="objection-name">Objection Name:</label>
+                                <input type="text" id="objection-name" placeholder="Enter objection name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="objection-content">Objection Content:</label>
+                                <textarea id="objection-content" placeholder="Enter objection content"></textarea>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="action-button" id="cancel-add-objection">Cancel</button>
+                                <button class="action-button save" id="save-new-objection">Save Objection</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="editor" id="editor-container">
+                    <textarea id="content-editor" placeholder="Loading content..."></textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-button" id="back-button" style="display: none;">Back</button>
+                    <button class="action-button delete" id="delete-button" style="display: none;">Delete Button</button>
+                    <button class="action-button save" id="save-button">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">Changes saved successfully!</div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Momentum Solar. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sectionTitle = document.getElementById('current-section-title');
+            const contentEditor = document.getElementById('content-editor');
+            const editorContainer = document.getElementById('editor-container');
+            const saveButton = document.getElementById('save-button');
+            const backButton = document.getElementById('back-button');
+            const deleteButton = document.getElementById('delete-button');
+            
+            // Section buttons elements
+            const sectionButtonsContainer = document.getElementById('section-buttons-container');
+            const sectionButtons = document.getElementById('section-buttons');
+            const showAddButtonBtn = document.getElementById('show-add-button');
+            const addButtonForm = document.getElementById('add-button-form');
+            const cancelAddButtonBtn = document.getElementById('cancel-add-button');
+            const saveNewButtonBtn = document.getElementById('save-new-button');
+            const buttonNameInput = document.getElementById('button-name');
+            const buttonContentInput = document.getElementById('button-content');
+            
+            // Objection elements
+            const objectionContainer = document.getElementById('objections-container');
+            const objectionButtons = document.getElementById('objection-buttons');
+            const showAddObjButton = document.getElementById('show-add-objection');
+            const addObjForm = document.getElementById('add-objection-form');
+            const cancelAddObjButton = document.getElementById('cancel-add-objection');
+            const saveNewObjButton = document.getElementById('save-new-objection');
+            const objNameInput = document.getElementById('objection-name');
+            const objContentInput = document.getElementById('objection-content');
+            
+            const notification = document.getElementById('notification');
+            
+            // State
+            let scriptContent = {};
+            let currentSection = 'intro';
+            let currentButton = 'default';
+            let currentObjection = null;
+            
+            // Fetch script content
+            fetchScriptContent();
+            
+            // Event listeners
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    selectSection(section);
+                });
+            });
+            
+            saveButton.addEventListener('click', saveContent);
+            backButton.addEventListener('click', goBack);
+            deleteButton.addEventListener('click', deleteCurrentButton);
+            
+            // Section button event listeners
+            showAddButtonBtn.addEventListener('click', showAddButtonForm);
+            cancelAddButtonBtn.addEventListener('click', hideAddButtonForm);
+            saveNewButtonBtn.addEventListener('click', saveNewButton);
+            
+            // Objection event listeners
+            showAddObjButton.addEventListener('click', showAddObjectionForm);
+            cancelAddObjButton.addEventListener('click', hideAddObjectionForm);
+            saveNewObjButton.addEventListener('click', saveNewObjection);
+            
+            // Functions
+            function fetchScriptContent() {
+                fetch('/api/script')
+                    .then(response => response.json())
+                    .then(data => {
+                        scriptContent = data;
+                        selectSection('intro');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching script content:', error);
+                        contentEditor.value = 'Error loading content. Please refresh the page.';
+                    });
+            }
+            
+            function selectSection(section) {
+                currentSection = section;
+                currentButton = 'default';
+                currentObjection = null;
+                
+                // Update active button
+                navButtons.forEach(btn => {
+                    if (btn.getAttribute('data-section') === section) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Update section title
+                const titles = {
+                    'intro': 'Introduction',
+                    'bill_info': 'Bill Information',
+                    'programs': 'Programs',
+                    'objections': 'Objections',
+                    'closing': 'Closing',
+                    'final_details': 'Final Closing Details'
+                };
+                sectionTitle.textContent = titles[section];
+                
+                // Handle objections section differently
+                if (section === 'objections') {
+                    showObjections();
+                } else {
+                    showSectionButtons(section);
+                }
+            }
+            
+            function showSectionButtons(section) {
+                // Hide objections container
+                objectionContainer.style.display = 'none';
+                
+                // Show section buttons container
+                sectionButtonsContainer.style.display = 'block';
+                
+                // Hide editor initially
+                editorContainer.style.display = 'none';
+                
+                // Hide back and delete buttons
+                backButton.style.display = 'none';
+                deleteButton.style.display = 'none';
+                
+                // Clear existing section buttons
+                sectionButtons.innerHTML = '';
+                
+                // Add section buttons
+                const sectionData = scriptContent[section] || {};
+                Object.keys(sectionData).forEach(buttonName => {
+                    const button = document.createElement('button');
+                    button.className = 'section-button';
+                    button.textContent = formatButtonName(buttonName);
+                    button.addEventListener('click', () => selectSectionButton(buttonName));
+                    sectionButtons.appendChild(button);
+                });
+            }
+            
+            function selectSectionButton(buttonName) {
+                currentButton = buttonName;
+                
+                // Show editor
+                editorContainer.style.display = 'flex';
+                
+                // Show back button
+                backButton.style.display = 'inline-block';
+                
+                // Show delete button only if not default
+                deleteButton.style.display = buttonName === 'default' ? 'none' : 'inline-block';
+                
+                // Hide section buttons container
+                sectionButtonsContainer.style.display = 'none';
+                
+                // Update section title
+                sectionTitle.textContent = `${formatSectionName(currentSection)} - ${formatButtonName(buttonName)}`;
+                
+                // Load content
+                contentEditor.value = scriptContent[currentSection][buttonName] || '';
+            }
+            
+            function showObjections() {
+                // Hide section buttons container
+                sectionButtonsContainer.style.display = 'none';
+                
+                // Show objections container
+                objectionContainer.style.display = 'block';
+                
+                // Hide editor
+                editorContainer.style.display = 'none';
+                
+                // Hide back and delete buttons
+                backButton.style.display = 'none';
+                deleteButton.style.display = 'none';
+                
+                // Clear existing objection buttons
+                objectionButtons.innerHTML = '';
+                
+                // Add objection buttons
+                const objections = scriptContent.objections || {};
+                Object.keys(objections).forEach(objName => {
+                    const button = document.createElement('button');
+                    button.className = 'section-button';
+                    button.textContent = formatButtonName(objName);
+                    button.addEventListener('click', () => selectObjection(objName));
+                    objectionButtons.appendChild(button);
+                });
+            }
+            
+            function selectObjection(objName) {
+                currentObjection = objName;
+                
+                // Show editor
+                editorContainer.style.display = 'flex';
+                
+                // Show back button
+                backButton.style.display = 'inline-block';
+                
+                // Show delete button
+                deleteButton.style.display = 'inline-block';
+                
+                // Hide objections container
+                objectionContainer.style.display = 'none';
+                
+                // Update section title
+                sectionTitle.textContent = `Objection: ${formatButtonName(objName)}`;
+                
+                // Load content
+                contentEditor.value = scriptContent.objections[objName] || '';
+            }
+            
+            function goBack() {
+                if (currentObjection) {
+                    // Go back to objections
+                    currentObjection = null;
+                    showObjections();
+                } else if (currentButton) {
+                    // Go back to section buttons
+                    currentButton = null;
+                    showSectionButtons(currentSection);
+                }
+            }
+            
+            function saveContent() {
+                if (currentObjection) {
+                    // Save objection
+                    const data = {
+                        content: contentEditor.value
+                    };
+                    
+                    fetch(`/api/script/objection/${currentObjection}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            scriptContent.objections[currentObjection] = contentEditor.value;
+                            showNotification();
+                        } else {
+                            alert('Error saving changes. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error saving content:', error);
+                        alert('Error saving changes. Please try again.');
+                    });
+                } else if (currentButton) {
+                    // Save section button
+                    const data = {
+                        content: contentEditor.value
+                    };
+                    
+                    fetch(`/api/script/section/${currentSection}/button/${currentButton}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            scriptContent[currentSection][currentButton] = contentEditor.value;
+                            showNotification();
+                        } else {
+                            alert('Error saving changes. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error saving content:', error);
+                        alert('Error saving changes. Please try again.');
+                    });
+                }
+            }
+            
+            function deleteCurrentButton() {
+                if (currentObjection) {
+                    // Confirm deletion
+                    if (!confirm(`Are you sure you want to delete the "${formatButtonName(currentObjection)}" objection?`)) {
+                        return;
+                    }
+                    
+                    // Delete objection
+                    fetch(`/api/script/objection/${currentObjection}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            delete scriptContent.objections[currentObjection];
+                            showObjections();
+                            showNotification('Objection deleted successfully!');
+                        } else {
+                            alert('Error deleting objection. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting objection:', error);
+                        alert('Error deleting objection. Please try again.');
+                    });
+                } else if (currentButton && currentButton !== 'default') {
+                    // Confirm deletion
+                    if (!confirm(`Are you sure you want to delete the "${formatButtonName(currentButton)}" button?`)) {
+                        return;
+                    }
+                    
+                    // Delete section button
+                    fetch(`/api/script/section/${currentSection}/button/${currentButton}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            delete scriptContent[currentSection][currentButton];
+                            showSectionButtons(currentSection);
+                            showNotification('Button deleted successfully!');
+                        } else {
+                            alert('Error deleting button. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting button:', error);
+                        alert('Error deleting button. Please try again.');
+                    });
+                }
+            }
+            
+            function showAddButtonForm() {
+                addButtonForm.style.display = 'block';
+                showAddButtonBtn.style.display = 'none';
+                buttonNameInput.value = '';
+                buttonContentInput.value = '';
+            }
+            
+            function hideAddButtonForm() {
+                addButtonForm.style.display = 'none';
+                showAddButtonBtn.style.display = 'block';
+            }
+            
+            function saveNewButton() {
+                const name = buttonNameInput.value.trim().toLowerCase().replace(/\s+/g, '_');
+                const content = buttonContentInput.value.trim();
+                
+                if (!name || !content) {
+                    alert('Please enter both name and content for the button.');
+                    return;
+                }
+                
+                if (name === 'default') {
+                    alert('Cannot use "default" as a button name. Please choose another name.');
+                    return;
+                }
+                
+                const data = {
+                    name: name,
+                    content: content
+                };
+                
+                fetch(`/api/script/section/${currentSection}/button`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (!scriptContent[currentSection]) {
+                            scriptContent[currentSection] = {};
+                        }
+                        scriptContent[currentSection][name] = content;
+                        hideAddButtonForm();
+                        showSectionButtons(currentSection);
+                        showNotification('Button added successfully!');
+                    } else {
+                        alert('Error adding button. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding button:', error);
+                    alert('Error adding button. Please try again.');
+                });
+            }
+            
+            function showAddObjectionForm() {
+                addObjForm.style.display = 'block';
+                showAddObjButton.style.display = 'none';
+                objNameInput.value = '';
+                objContentInput.value = '';
+            }
+            
+            function hideAddObjectionForm() {
+                addObjForm.style.display = 'none';
+                showAddObjButton.style.display = 'block';
+            }
+            
+            function saveNewObjection() {
+                const name = objNameInput.value.trim().toLowerCase().replace(/\s+/g, '_');
+                const content = objContentInput.value.trim();
+                
+                if (!name || !content) {
+                    alert('Please enter both name and content for the objection.');
+                    return;
+                }
+                
+                const data = {
+                    name: name,
+                    content: content
+                };
+                
+                fetch('/api/script/objection', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (!scriptContent.objections) {
+                            scriptContent.objections = {};
+                        }
+                        scriptContent.objections[name] = content;
+                        hideAddObjectionForm();
+                        showObjections();
+                        showNotification('Objection added successfully!');
+                    } else {
+                        alert('Error adding objection. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding objection:', error);
+                    alert('Error adding objection. Please try again.');
+                });
+            }
+            
+            function formatButtonName(name) {
+                return name.split('_').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+            }
+            
+            function formatSectionName(section) {
+                const titles = {
+                    'intro': 'Introduction',
+                    'bill_info': 'Bill Information',
+                    'programs': 'Programs',
+                    'objections': 'Objections',
+                    'closing': 'Closing',
+                    'final_details': 'Final Closing Details'
+                };
+                return titles[section] || section;
+            }
+            
+            function showNotification(message = 'Changes saved successfully!') {
+                notification.textContent = message;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

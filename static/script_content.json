@@ -1,0 +1,26 @@
+{
+  "intro": {
+    "default": "INTRODUCTION:\n\nYour Name\n\nMomentum Solar\n\nRecorded Line\n\nProperty\n\nPurpose of the call (value of your home)"
+  },
+  "bill_info": {
+    "default": "BILL INFORMATION\n\nProvider\n\nBill Amount"
+  },
+  "programs": {
+    "default": "PROGRAMS\n\nLoan = TX NV\n\n       30% tax incentive, flat bill – pay the same amount every month until it's paid and\n       then no electricity bill after that\n\nLease – NY NJ RI MA CT\n\n       No money down to get the system installed, save up to 30% and after 5 years, the\n       option to buy it.\n\nLease Florida\n\n       Florida Power and Light (FPL), Tampa Electric Company (TECO), DUKE\n\nPurchase Florida\n\n       All other providers the state (except Withalacoochie)"
+  },
+  "objections": {
+    "not_interested": "I'M NOT INTERESTED\n\nWhat have you heard about solar?",
+    "too_expensive": "I CAN'T AFFORD IT, SOLAR IS TOO EXPENSIVE\n\n       That is a common misconception about solar. With the programs\nbeing offered, solar has become more affordable than it's ever been\n\n             Lease/Purchase - Lease is no cost for the system and you will\n             save up to 30% on your electric bill.\n\n             Purchzse – You are going go have no upfront investment and\n             then every month you will pay the same amount or less than\n             your average electric bill is now. Once it's paid for you then will\n             not have an electric bill anymore",
+    "send_info": "SEND ME AN EMAIL OR SOME INFORMATION\n\n              I can direct you to our website at MomentumSolar.com. There\n       you will find some basic information about solar, but to have an\n       appointment with our Solar Specialist is the best way to get\n       information because it will be specific to you and your property.",
+    "roof_objection": "ROOF OBJECTION (OLD OR NEW)\n\nOLD ROOF - If it is determined that you need a new roof, Please know that we have a \"Solar Plus Roofing Option\" - This program offers you a new roof AT COST if you decide to go Solar with Momentum.\n\nNEW ROOF - If you have a new roof, our Railess Racking system is a top of the line installation system which can offer you extra Structural Integrity. The QCell Panels we offer (Exclusively) are very resilient and can give your new roof some additional protection and insulation from the elements",
+    "spousal_objection": "SPOUSAL OBJECTION\n\nIf they say:\n\n\"My spouse doesn't like solar\" - try to find out what the objection is with a neutral question: \"Do you happen to know why?\"\n   OR – you should find out how the person you're talking to feels about solar.\n\"How do you feel about solar?\" \"Do you think it could be beneficial?\"",
+    "selling_property": "WE'RE THINKING ABOUT SELLING OUR PROPERTY (Lease/Purchase)\n\nFirst Ask: Is it currently on the market?\n\n       If so, They're DISQUALIFIED!\n\n       If not, Find out about when they want to sell - if not too soon, they can\nenjoy immediate savings and\n\n       LEASE - the lease gets transferred to tne New Homeowner upon\ntaking Occupancy of the property\n\n       PURCHASE: The cost of the Solar can be included in the listing price\nand that way, they will leave with the loan paid.",
+    "tree_removal": "TREE REMOVAL\n\nAre you open to the discussion of tree removal?"
+  },
+  "closing": {
+    "default": "CLOSING\n\n       CHOOSE TIME FROM SCHEDULE PROVIDED\n\nVALUE FOR THE CONSULTATION\n\n       30 – 60 MINUTES\n\n       Graph on the back of Electric Bill to determine your kilowatt average\n\n       Show Them a design of What It will looks like on their property\n\n       Break Down Exactly What The Saving Will Be, to the penny\n       Specialist will Answer Their Questions\n\n       Include The Web Site (Momentumsolar.com)"
+  },
+  "final_details": {
+    "default": "FINAL CLOSING DETAILS\n\nNEXT DAY (Tomorrow)\n\n       CONFIRMATIONS\n\n       Phone number\n\n       Bill information\n\n       Appointment Information\n\nDEMO (NOT TOMORROW)\n\n       Confirm the address to the zip code\n\n       COURTESY CALL the day before the appointment"
+  }
+}
